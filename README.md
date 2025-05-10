@@ -109,5 +109,22 @@ momentum: Combines current and previous gradients for faster convergence:
 update = momentum×previous_update−lr×current_gradient
 
 ​
+(4) 🚀 Adagrad Optimizer
+Adagrad (Adaptive Gradient Algorithm) adapts the learning rate for each parameter individually based on how frequently it's updated.
+
+📌 Key Concepts:
+Adaptive learning rate: Parameters that receive frequent updates get smaller learning rates, while infrequent ones get larger rates.
+No need to manually adjust the learning rate often.
+Good for dealing with sparse data (like text or embeddings).
+
+ε (epsilon) is a small constant to prevent division by zero.
+cache grows over time, so learning slows down (which can be a downside).
+
+
+🧠 Formula:
+For weight w:
+cache += gradient²
+w -= (learning_rate / sqrt(cache + ε)) * gradient
+
 
 
