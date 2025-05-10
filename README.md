@@ -1,11 +1,10 @@
-OPTIMIZERS IN NEURAL NETWORK
-
+// OPTIMIZERS IN NEURAL NETWORK
 
 ABOUT THE STRUCTURE OF THE DATASET:->
 🔹 Dense layers
 🔹 Activation functions (ReLU & Softmax)
 🔹 Loss function (Categorical Cross-Entropy)
-🔹 Optimization (SGD)
+🔹 Optimization.
 
 Core Components:->
 Layer_Dense: Fully connected neural network layer 🔗
@@ -58,6 +57,9 @@ layer.weights += -learning_rate * layer.dweights
 layer.biases += -learning_rate * layer.dbiases
 
 
+
+
+
 (2) DECAY_RATE
 # Optimizer updates model weights and biases to minimize the loss function.
 
@@ -93,8 +95,11 @@ class Optimizer_SGD:
         self.iterations += 1
 
 
-(3) MOMENTUM
 
+
+
+
+(3) MOMENTUM
 Gradient Descent is the process of iteratively adjusting model weights to minimize the loss. This implementation improves it with:
 📉 Learning Rate Decay: Slows down learning over time for finer convergence.
 🏃 Momentum: Helps speed up training and smooth out updates by remembering previous gradients.
@@ -107,6 +112,11 @@ lr = initial_lr/(1+decay×iterations)
 
 momentum: Combines current and previous gradients for faster convergence:
 update = momentum×previous_update−lr×current_gradient
+
+
+
+
+
 
 ​
 (4) 🚀 Adagrad Optimizer
@@ -127,6 +137,10 @@ cache += gradient²
 w -= (learning_rate / sqrt(cache + ε)) * gradient
 
 
+
+
+
+
 (5) ⚡ RMSprop Optimizer
 RMSprop (Root Mean Square Propagation) is an adaptive learning rate method designed to handle non-stationary objectives and improve training stability and speed, especially for RNNs or noisy gradients.
 
@@ -140,4 +154,45 @@ This stabilizes learning by dampening oscillations in steep or noisy directions.
 For a parameter θ:
 cache = ρ * cache + (1 - ρ) * gradient²  
 θ -= learning_rate * gradient / (sqrt(cache) + epsilon)
+
+
+
+
+
+(6) 🔥 Adam Optimizer
+Adam (Adaptive Moment Estimation) combines the benefits of Momentum and RMSprop to adapt the learning rate of each parameter and ensure stable, efficient training. It's one of the most widely used optimizers due to its efficiency and ability to work well in most scenarios.
+
+📌 Key Concepts:
+Momentum: Uses an exponentially decaying average of past gradients (m) to speed up convergence.
+RMSprop: Uses an exponentially decaying average of past squared gradients (v) to adjust the learning rate.
+Bias correction: Corrects initialization bias (especially in the initial iterations) for m and v.
+
+🔢 How It Works:
+First Moment Estimate (m): Exponentially weighted average of the gradients.
+Second Moment Estimate (v): Exponentially weighted average of the squared gradients.
+Bias Correction: At the beginning of training, the moment estimates are biased toward zero. We apply a correction to avoid this bias.
+Parameter Update: Parameters are updated using the corrected m and v.
+
+
+📌 Formula:
+For a parameter θ:
+
+m = β1 * m + (1 - β1) * gradient
+v = β2 * v + (1 - β2) * gradient²
+
+m_corrected = m / (1 - β1^t)
+v_corrected = v / (1 - β2^t)
+θ -= learning_rate * m_corrected / (sqrt(v_corrected) + epsilon)
+
+
+β1, β2 are the decay rates for the first and second moments, respectively (default values: 0.9 and 0.999).
+ε is a small constant (default: 1e-7) to prevent division by zero.
+t is the timestep (iteration number).
+
+
+
+
+
+
+
 
