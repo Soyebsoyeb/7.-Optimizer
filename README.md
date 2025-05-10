@@ -93,4 +93,21 @@ class Optimizer_SGD:
         self.iterations += 1
 
 
+(3) MOMENTUM
+
+Gradient Descent is the process of iteratively adjusting model weights to minimize the loss. This implementation improves it with:
+📉 Learning Rate Decay: Slows down learning over time for finer convergence.
+🏃 Momentum: Helps speed up training and smooth out updates by remembering previous gradients.
+
+
+🔧 Key Features
+learning_rate: Controls the size of each weight update.
+decay: Reduces the learning rate over time:
+lr = initial_lr/(1+decay×iterations)
+
+momentum: Combines current and previous gradients for faster convergence:
+update = momentum×previous_update−lr×current_gradient
+
+​
+
 
