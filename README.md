@@ -127,4 +127,17 @@ cache += gradient²
 w -= (learning_rate / sqrt(cache + ε)) * gradient
 
 
+(5) ⚡ RMSprop Optimizer
+RMSprop (Root Mean Square Propagation) is an adaptive learning rate method designed to handle non-stationary objectives and improve training stability and speed, especially for RNNs or noisy gradients.
+
+🔍 How It Works
+Maintains an exponentially decaying average of squared gradients for each parameter.
+Divides the learning rate by the square root of this moving average.
+This stabilizes learning by dampening oscillations in steep or noisy directions.
+
+
+📌 Formula
+For a parameter θ:
+cache = ρ * cache + (1 - ρ) * gradient²  
+θ -= learning_rate * gradient / (sqrt(cache) + epsilon)
 
