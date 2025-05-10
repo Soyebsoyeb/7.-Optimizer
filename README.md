@@ -56,3 +56,41 @@ Combined Softmax + CrossEntropy: Optimized for performance ⚡
 Stochastic Gradient Descent (SGD):
 layer.weights += -learning_rate * layer.dweights
 layer.biases += -learning_rate * layer.dbiases
+
+
+(2) DECAY_RATE
+# Optimizer updates model weights and biases to minimize the loss function.
+
+class Optimizer_SGD:
+    def __init__(self, learning_rate=1., decay=0.):
+        # 🔢 Initial learning rate
+        self.learning_rate = learning_rate
+        # 📉 Learning rate decay (optional)
+        self.decay = decay
+        # ↪️ Tracks how many updates have been done
+        self.iterations = 0
+        # 🎯 Learning rate used in current iteration
+        self.current_learning_rate = learning_rate
+
+
+  LEARNING RATE:   
+  current_lr= (1+decay⋅iterations/initial_lr)^(-1)
+​
+    def pre_update_params(self):
+        # 🔁 Apply decay if specified
+        if self.decay:
+            self.current_learning_rate = self.learning_rate * \
+                (1. / (1. + self.decay * self.iterations))
+
+  def update_params(self, layer):
+        # 🧮 Gradient Descent Step:
+        # W = W - learning_rate × dW
+        layer.weights += -self.current_learning_rate * layer.dweights
+        layer.biases += -self.current_learning_rate * layer.dbiases
+
+  def post_update_params(self):
+        # ➕ Increment iteration count
+        self.iterations += 1
+
+
+
